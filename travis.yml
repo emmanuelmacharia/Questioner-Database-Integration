@@ -1,0 +1,27 @@
+#commands that specify the language
+
+language: python
+
+python: 
+
+- "3.6"
+
+#command that installs dependancies
+
+install: 
+- pip install -r requirements.txt
+
+# command to run tests
+
+# before sript:
+# - psql -c "CREATE DATABASE teststoremanagerdb;"-U postgres
+# - psql -c "CREATE USER postgres;" -U postgres
+# - psql -c "ALTER USER postgres WITH password 'Permafrost';"-U postgres`
+
+script : 
+
+-  nosetests --exe -v --with-coverage --cover-package=app
+
+after_success:
+
+- coveralls
