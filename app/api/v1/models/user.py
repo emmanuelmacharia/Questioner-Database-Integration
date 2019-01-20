@@ -57,18 +57,23 @@ class UserModel:
     @staticmethod
     def delete_user(email):
         '''deletes the specified user'''
-        
-        result = UserModel.single_user(email)
-        if result is False:
+        if len(users) < 1:
             return {
                 'status': 404,
-                'message': 'No user by that email exists'
-            }, 404    
-        #indexed the position of the record in the list through its id
-        index = int(result['data']['id'])-1 #subracted one because python starts counting from 0
-        users.pop(index) #used pop- you can use del,but pop gets the job done 
-        return {
-            'status': 204,
-            'message': 'User deleted successfully'
-        }, 200 #cant give it a status of 204 because 204 returns no content
+                'message': 'There are no meetups currently available'
+            }, 404
+        else:   
+            result = UserModel.single_user(email)
+            if result is False:
+                return {
+                    'status': 404,
+                    'message': 'No user by that email exists'
+                }, 404    
+            #indexed the position of the record in the list through its id
+            index = int(result['data']['id'])-1 #subracted one because python starts counting from 0
+            users.pop(index) #used pop- you can use del,but pop gets the job done 
+            return {
+                'status': 204,
+                'message': 'User deleted successfully'
+            }, 200 #cant give it a status of 204 because 204 returns no content
 
