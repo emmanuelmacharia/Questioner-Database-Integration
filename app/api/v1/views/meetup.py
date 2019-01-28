@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, make_response
 from flask_restful import Api, Resource, reqparse
+from flask_jwt_extended import jwt_required
 
 from ..models.meetup import MeetupModel, meetup
 
@@ -29,7 +30,8 @@ parser.add_argument(
 
 class Meetup(Resource):
     '''handles the meetup endpoints for creating and viewing multiple meetup records'''
-
+    
+    @jwt_required
     def post(self):
         '''creates a new meetup event'''
         data = request.get_json()
@@ -76,16 +78,18 @@ class Meetup(Resource):
 
 class SingleMeetup(Resource):
     '''handles single meetup endpoints'''
-
+    
+    @jwt_required
     def get(self, id):
         '''gets a single meetup record'''
         return MeetupModel.single_meetup(id)
 
-
+    @jwt_required
     def put(self, id):
         '''updates a meetup record'''
         pass
     
+    @jwt_required    
     def delete(self, id):
         '''deletes a meetup record'''
         return MeetupModel.delete(id)
@@ -93,7 +97,8 @@ class SingleMeetup(Resource):
 
 class AllMeetups(Resource):
     '''handles all meetups'''
-
+    
+    @jwt_required
     def get(self):
         '''gets all the meetups created'''
         return {

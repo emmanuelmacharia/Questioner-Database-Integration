@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_restful import Api, Resource, reqparse
+from flask_jwt_extended import jwt_required
 
 from ..models.rsvp import RsvpModel, rsvps
 
@@ -21,6 +22,8 @@ parser.add_argument(
 
 class Rsvp(Resource):
     '''contains rsvp endpoints'''
+
+    @jwt_required
     def get(self):
         '''gets all rsvps'''
         return {
@@ -28,6 +31,7 @@ class Rsvp(Resource):
             'data': rsvps
         }, 200
 
+    @jwt_required
     def post(self):
         '''creates n rsvp record'''
         data = request.get_json()
@@ -65,14 +69,17 @@ class Rsvp(Resource):
 
 class Single_Rsvp(Resource):
     '''contains endpoints for a single rsvp record'''
+    @jwt_required
     def patch(self):
         '''updates rsvp record'''
         pass
-    
+
+    @jwt_required    
     def get(self, id):
         '''gets a single rsvp record'''
         return RsvpModel.single_rsvp(id)
 
+    @jwt_required
     def delete(self, id):
         '''deletes rsvp record'''
         return RsvpModel.delete(id)

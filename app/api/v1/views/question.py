@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_restful import Api, Resource, reqparse
+from flask_jwt_extended import jwt_required
 
 from ..models.question import QuestionModel, questions
 
@@ -30,6 +31,8 @@ parser.add_argument(
 
 class Question(Resource):
     '''contains endpoints for creating the questions'''
+
+    @jwt_required
     def get(self):
         '''gets all questions'''
         return {
@@ -37,6 +40,7 @@ class Question(Resource):
             'data': questions
         }, 200
 
+    @jwt_required
     def post(self):
         '''creates a new question'''
         data = request.get_json()
@@ -84,14 +88,17 @@ class Question(Resource):
 
 class Single_Question(Resource):
     '''contains endpoints for a single question'''
+    @jwt_required
     def patch(self):
         '''updates the question- i think'''
         pass
 
+    @jwt_required
     def get(self, id):
         '''gets a single question'''
         return QuestionModel.single_question(id)
 
+    @jwt_required
     def delete(self,id):
         '''deletes a question'''
         return QuestionModel.delete_question(id)

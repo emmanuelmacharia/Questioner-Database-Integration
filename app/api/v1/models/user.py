@@ -2,6 +2,7 @@ import datetime
 
 from flask import request
 from flask_restful import Resource, reqparse
+from passlib.hash import pbkdf2_sha256 as sha256
 
 users = [{
     'id': 1,
@@ -18,7 +19,7 @@ users = [{
 class UserModel:
     '''model for the user information'''
     @staticmethod
-    def create_user(firstname,lastname,othername,email,phone_number,username):
+    def create_user(firstname,lastname,othername,email,phone_number,username,hash):
         '''creates the user'''
         isadmin = False
         id = len(users)+1
@@ -33,7 +34,8 @@ class UserModel:
             'phoneNumber': phone_number,
             'username': username,
             'isAdmin': isadmin,
-            'registered': registered
+            'registered': registered,
+            'password': hash
         }
 
         users.append(new_user)
@@ -77,3 +79,13 @@ class UserModel:
                 'message': 'User deleted successfully'
             }, 200 #cant give it a status of 204 because 204 returns no content
 
+    @staticmethod
+    def generate_hash(password):
+        return sha256.hash(password)
+
+
+    @staticmethod
+    def verify_password(password,email):
+        '''verifies that the password's right'''
+        result = UserModel.single_user(email)
+        return sha256.verify(password, result['data']['password'])
