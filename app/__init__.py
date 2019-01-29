@@ -15,7 +15,7 @@ from .api.v1.views.rsvp import Rsvp, Single_Rsvp
 v1 = Blueprint('v1',__name__,url_prefix='/api/v1')
 api = Api(v1)
 
-def createapp():
+def createapp(config_name):
     '''runs the entire app'''
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_configurations['testing'])
@@ -26,7 +26,7 @@ def createapp():
     JWTManager(app)
 
 
-    api.add_resource(User, '/users')
+    api.add_resource(User, '/users', '/register')
     api.add_resource(SingleUser, '/user/<string:email>')
     api.add_resource(Login, '/login')
     api.add_resource(Meetup, '/meetups')

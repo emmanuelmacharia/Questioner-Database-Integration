@@ -72,9 +72,9 @@ class User(Resource):
         if not firstname or not lastname or not othername:
             return {'message': 'Your full name is required, at least 3 names'}, 400
         elif not email or not phone_number:
-            return {'message': 'Your contact info (phone and email) are requuired'}, 400
+            return {'message': 'Your contact info (phone and email) are required'}, 400
         elif not username or not password:
-            return {'message': 'Username is required'}, 400
+            return {'message': 'Username and Password are required'}, 400
         else:
             for item in data.keys():
                 if item not in payload:
