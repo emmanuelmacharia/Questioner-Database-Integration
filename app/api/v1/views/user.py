@@ -46,7 +46,7 @@ class User(Resource):
     parser.add_argument(
         "password", type=str, required=True, help="A username is required"
     )
-
+    @jwt_required
     def get(self):
         '''the get all users endpoint'''
         return {
@@ -126,7 +126,7 @@ class Login(Resource):
     )
 
     parser.add_argument(
-        "password", type=str, required=True, help="A username is required"
+        "password", type=str, required=True, help="A password is required"
     )
     def post(self):
         data = request.get_json()
@@ -145,9 +145,10 @@ class Login(Resource):
 
         UserModel.generate_hash(password)
         session = UserModel.single_user(email)
-        if session is False:
-            return {'message': 'Username, {}, email, {} or password dont seem to exist'.format(username, email)}, 400
-        if UserModel.verify_password(password, email) is True:
+        # import pdb; pdb.set_trace()
+        if session[-1] is not 200:
+            return {'message': 'email- {} doesnt seem to exist'.format(email)}, 400
+        elif UserModel.verify_password(password, email) is True:
             try:
                 ac_token = create_access_token(identity=email, expires_delta=datetime.timedelta(days=2))
                 return {
@@ -162,6 +163,10 @@ class Login(Resource):
                     'message': 'Bad request',
                     'error': e
                 }, 400
-
+        else:
+            return {
+                'status': 400,
+                'message': "username and/or password do not match"
+            }, 400
 
     

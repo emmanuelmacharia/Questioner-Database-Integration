@@ -6,14 +6,28 @@ from passlib.hash import pbkdf2_sha256 as sha256
 
 users = [{
     'id': 1,
-    'firstname': "emmanuel",
-    'lastname': "kiangai",
-    'othername': "macharia",
-    'email': "samuelmarsha@outlook.com",
+    'firstname': "sponge",
+    'lastname': "bob",
+    'othername': "squarepants",
+    'email': "spongebobsquarepants@bikinibottom.sea",
     'phoneNumber': "0707143761",
-    'username': "emmanuelmacharia",
+    'username': "Spongebob",
     'isAdmin': True,
-    'registered': "19/1/2019"}
+    'registered': "19/1/2019",
+    "password": sha256.hash("CrustyKr1abs")
+    },
+    {
+    'id': 2,
+    'firstname': "squid",
+    'lastname': "ward",
+    'othername': "tentacles",
+    'email': "squidward@bikinibottom.sea",
+    'phoneNumber': "0707143761",
+    'username': "Spongebob",
+    'isAdmin': False,
+    'registered': "19/1/2019",
+    "password": sha256.hash("Ih8spongebob")
+}
     ]
 
 class UserModel:
@@ -54,7 +68,7 @@ class UserModel:
             'status': 200,
             'message': 'User found',
             'data': exists
-        }
+        }, 200
 
     @staticmethod
     def delete_user(email):
@@ -72,7 +86,7 @@ class UserModel:
                     'message': 'No user by that email exists'
                 }, 404    
             #indexed the position of the record in the list through its id
-            index = int(result['data']['id'])-1 #subracted one because python starts counting from 0
+            index = int(result[0]['data']['id'])-1 #subracted one because python starts counting from 0
             users.pop(index) #used pop- you can use del,but pop gets the job done 
             return {
                 'status': 204,
@@ -88,4 +102,4 @@ class UserModel:
     def verify_password(password,email):
         '''verifies that the password's right'''
         result = UserModel.single_user(email)
-        return sha256.verify(password, result['data']['password'])
+        return sha256.verify(password, result[0]['data']['password'])
