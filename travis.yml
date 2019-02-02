@@ -20,7 +20,7 @@ install:
 
 script : 
 
--  nosetests --exe -v --with-coverage --cover-package=app
+-  pytest --cov app
 
 after_success:
 
