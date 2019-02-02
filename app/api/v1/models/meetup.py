@@ -3,7 +3,17 @@ import datetime
 from flask import request
 from flask_restful import Resource
 
-meetup = []
+meetup = [
+    {
+        'id': 1,
+        'createdOn': 1/1/2019,
+        "location": "Andela",
+        "images": "1.jpeg",
+        "topic": "AR and Education",
+        "happeningOn": "1/2/2019",
+        "tags": ["#AR&Education, #AR"]
+    }
+]
 
 class MeetupModel:
     '''models for the meetup information'''
@@ -13,7 +23,7 @@ class MeetupModel:
        ):
         id = len(meetup)+1
         date_created = datetime.datetime.now()
-        createdOn = date_created.strftime('%d,%m %Y')
+        createdOn = date_created.strftime('%d/%m/%Y')
         new_meetup = {
             'id': id,
             'createdOn': createdOn,
@@ -53,7 +63,7 @@ class MeetupModel:
             }, 404
         else:
             result = MeetupModel.single_meetup(id)
-            if result is False:
+            if result [-1] == 404:
                 return {
                     'status': 404,
                     'message': 'Meetup record is doesn\'t exist'

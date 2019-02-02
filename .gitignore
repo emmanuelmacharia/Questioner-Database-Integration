@@ -6,4 +6,5 @@ __pycache__/
 *.log
 .env
 .coverage
-htmlcov/
+.pytest_cache
+htmlcov

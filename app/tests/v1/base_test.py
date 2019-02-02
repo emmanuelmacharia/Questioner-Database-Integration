@@ -15,6 +15,7 @@ USERS_URL = 'api/v1/users'
 CREATE_MEETUP_URL = 'api/v1/meetups'
 ALL_MEETUPS_URL = 'api/v1/meetups/upcoming'
 SINGLE_MEETUP_URL = 'api/v1/meetups/1'
+NO_MEETUP_URL = 'api/v1/meetups/100'
 
 # urls for question endpoints
 BASE_QUESTION_URL = 'api/v1/question'
@@ -152,8 +153,90 @@ class BaseTest(unittest.TestCase):
         }
 
         # variables for the meetup endpoints;
-        
+        self.valid_meetup_entry = {
+            "location": "Andela",
+            "images": "1.jpeg",
+            "topic": "AR and Education",
+            "happeningOn": "1/2/2019",
+            "tags": ["#AR&Education, #AR"]
+            }
 
+        self.meetup_without_location = {
+            "images": "1.jpeg",
+            "topic": "AR and Education",
+            "happeningOn": "1/2/2019",
+            "tags": ["#AR&Education, #AR"]
+            }
+
+        self.meetup_without_images = {
+            "location": "Andela",
+            "topic": "AR and Education",
+            "happeningOn": "1/2/2019",
+            "tags": ["#AR&Education, #AR"]
+            }
+
+        self.meetup_without_topic = {
+            "location": "Andela",
+            "images": "1.jpeg",
+            "happeningOn": "1/2/2019",
+            "tags": ["#AR&Education, #AR"]
+            }
+
+        self.meetup_without_date = {
+            "location": "Andela",
+            "images": "1.jpeg",
+            "topic": "AR and Education",
+            "tags": ["#AR&Education, #AR"]
+            }
+
+        self.meetup_without_tags = {
+            "location": "Andela",
+            "images": "1.jpeg",
+            "topic": "AR and Education",
+            "happeningOn": "1/2/2019"
+            }
+        
+        self.meetup_with_empty_images = {
+            "location": "Andela",
+            "images": "",
+            "topic": "AR and Education",
+            "happeningOn": "1/2/2019",
+            "tags": ["#AR&Education, #AR"]
+            }
+
+        self.meetup_with_empty_location = {
+            "location": "",
+            "images": "1.jpeg",
+            "topic": "AR and Education",
+            "happeningOn": "1/2/2019",
+            "tags": ["#AR&Education, #AR"]
+            }
+
+        self.meetup_with_empty_topic = {
+            "location": "Andela",
+            "images": "1.jpeg",
+            "topic": "",
+            "happeningOn": "1/2/2019",
+            "tags": ["#AR&Education, #AR"]
+            }
+
+        self.meetup_with_empty_date = {
+            "location": "Andela",
+            "images": "1.jpeg",
+            "topic": "AR and Education",
+            "happeningOn": "",
+            "tags": ["#AR&Education, #AR"]
+            }
+
+        self.meetup_with_empty_tags = {
+            "location": "Andela",
+            "images": "1.jpeg",
+            "topic": "AR and Education",
+            "happeningOn": "1/2/2019",
+            "tags": ""
+            }
+
+    # methods for user registration and login
     def register(self):
         '''registers the test client'''
         register = self.app.post(
@@ -171,3 +254,18 @@ class BaseTest(unittest.TestCase):
             content_type = 'application/json'
         )
         return json.loads(login.data.decode())["access_token"]
+
+
+    # methods for meetup creation
+    def create_meetup(self):
+        '''creates a meetup record'''
+        meetup = self.app.post(
+            CREATE_MEETUP_URL,
+            headers = dict(Authorization = "Bearer " + self.login()),
+            data = json.dumps(self.valid_meetup_entry),
+            content_type = 'application/json'
+            )
+        return meetup
+
+
+
