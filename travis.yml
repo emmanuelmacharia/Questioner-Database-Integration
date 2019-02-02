@@ -18,6 +18,10 @@ install:
 # - psql -c "CREATE USER postgres;" -U postgres
 # - psql -c "ALTER USER postgres WITH password 'Permafrost';"-U postgres`
 
+branches:
+  only:
+    /.*/
+
 script : 
 
 -  pytest --cov app
