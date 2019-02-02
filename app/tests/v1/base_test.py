@@ -20,6 +20,7 @@ NO_MEETUP_URL = 'api/v1/meetups/100'
 # urls for question endpoints
 BASE_QUESTION_URL = 'api/v1/question'
 SINGLE_QUESTION_URL = 'api/v1/question/1'
+NO_QUESTION_URL = 'api/v1/question/100'
 
 # urls for rsvp endpoints
 BASE_RSVP_URL = 'api/v1/rsvp'
@@ -236,6 +237,91 @@ class BaseTest(unittest.TestCase):
             "tags": ""
             }
 
+        #variables for the questions endpoints
+        self.valid_question_entry = {
+                "createdBy": 2,
+                "meetup": 1,
+                "title": "Snack Time",
+                "body": "Will there be lunch?",
+                "votes": 5
+            }
+
+        self.question_without_name = {
+                "meetup": 1,
+                "title": "Snack Time",
+                "body": "Will there be lunch?",
+                "votes": 5
+            }
+
+        self.question_without_meetup = {
+                "createdBy": 2,
+                "title": "Snack Time",
+                "body": "Will there be lunch?",
+                "votes": 5
+            }
+
+        self.question_without_title = {
+                "createdBy": 2,
+                "meetup": 1,
+                "body": "Will there be lunch?",
+                "votes": 5
+            }
+
+        self.question_without_body = {
+                "createdBy": 2,
+                "meetup": 1,
+                "title": "Snack Time",
+                "votes": 5
+            }
+
+
+        self.question_without_votes = {
+                "createdBy": 2,
+                "meetup": 1,
+                "title": "Snack Time",
+                "body": "Will there be lunch?"
+            }
+
+        self.empty_user = {
+            "createdBy": None,
+            "meetup": 1,
+            "title": "Snack Time",
+            "body": "Will there be lunch?",
+            "votes": 5
+        }
+
+        self.empty_meetup = {
+            "createdBy": 2,
+            "meetup": None,
+            "title": "Snack Time",
+            "body": "Will there be lunch?",
+            "votes": 5
+        }
+
+        self.empty_title = {
+            "createdBy": 2,
+            "meetup": 1,
+            "title": "",
+            "body": "Will there be lunch?",
+            "votes": 5
+        }
+
+        self.empty_body = {
+            "createdBy": 2,
+            "meetup": 1,
+            "title": "Snack Time",
+            "body": "",
+            "votes": 5
+        }
+
+        self.empty_votes = {
+            "createdBy": 2,
+            "meetup": 1,
+            "title": "Snack Time",
+            "body": "Will there be lunch?",
+            "votes": None
+        }
+
     # methods for user registration and login
     def register(self):
         '''registers the test client'''
@@ -268,4 +354,15 @@ class BaseTest(unittest.TestCase):
         return meetup
 
 
-
+    #method for creating a question
+    def create_question(self):
+        '''creates a question'''
+        question = self.app.post(
+            BASE_QUESTION_URL,
+            headers = dict(
+                Authorization= 'Bearer ' + self.login()
+            ),
+            data = json.dumps(self.valid_question_entry),
+            content_type = 'application/json'
+        )
+        return question

@@ -105,6 +105,21 @@ class TestMeetUps(BaseTest):
                          ["message"], "the subject of the meetup must be provided (topic and tags)"
                          )
 
+
+    def test_get_all_meetups(self):
+            '''tests the get all meetups endpoint'''
+            self.create_meetup()
+            response = self.app.get(
+                ALL_MEETUPS_URL,
+                headers=dict(
+                    Authorization="Bearer " + self.login()
+                ),
+                content_type='application/json'
+            )
+            response_data = json.loads(response.data.decode())
+            self.assertEqual(response.status_code, 200)
+            self.assertTrue(response_data["data"])
+
     # def test_get_single_meetup(self):
     #     '''tests the get-single meetup  endpoint'''
     #     self.create_meetup()
@@ -113,6 +128,7 @@ class TestMeetUps(BaseTest):
     #         headers = dict(
     #             Authorization = "Bearer " + self.login()
     #             ),
+    #         data=json.dumps(self.valid_meetup_entry),
     #         content_type = 'application/json'
     #         )
     #     response_data = json.loads(response.data.decode())
@@ -132,22 +148,6 @@ class TestMeetUps(BaseTest):
         self.assertEqual(response.status_code, 404)
         self.assertEqual(response_data['message'],
                          'Meetup record is doesn\'t exist')
-            
-        
-
-    def test_get_all_meetups(self):
-        '''tests the get all meetups endpoint'''
-        self.create_meetup()
-        response = self.app.get(
-            ALL_MEETUPS_URL,
-            headers = dict(
-                Authorization = "Bearer " + self.login()
-                ),
-            content_type = 'application/json'
-            )
-        response_data = json.loads(response.data.decode())
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(response_data["data"])
 
     def test_delete_meetup_success(self):
         '''tests the delete meetup endpoint'''

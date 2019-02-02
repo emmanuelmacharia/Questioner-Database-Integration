@@ -59,7 +59,7 @@ class Question(Resource):
         if not createdBy or not meetup:
             return {'message': 'Your id and meetup id is required'}, 400
         elif not title or not body:
-            return {'message': 'Your question information is requuired'}, 400
+            return {'message': 'Your question information is required'}, 400
         elif not votes:
             return {'message': 'upvote numbers are required'}, 400
         else:
@@ -102,4 +102,5 @@ class Single_Question(Resource):
     def delete(self,id):
         '''deletes a question'''
         return QuestionModel.delete_question(id)
+
 
