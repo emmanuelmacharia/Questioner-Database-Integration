@@ -24,7 +24,7 @@ branches:
 
 script : 
 
--  pytest --cov app
+-  pytest
 
 after_success:
 
