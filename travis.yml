@@ -20,7 +20,7 @@ install:
 
 branches:
   only:
-    /.*/
+    - /.*/
 
 script : 
 
