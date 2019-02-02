@@ -322,6 +322,46 @@ class BaseTest(unittest.TestCase):
             "votes": None
         }
 
+        # Variables for rsvp
+        self.valid_rsvp_entry = {
+                "meetup": 1,
+                "user": 2,
+                "response": "Yes"
+        }
+
+        self.rsvp_without_meetup = {
+            "user": 2,
+            "response": "Yes"
+        }
+
+        self.rsvp_without_user= {
+            "meetup": 1,
+            "response": "Yes"
+        }
+
+        self.rsvp_without_response = {
+            "meetup": 1,
+            "user": 2
+        }
+
+        self.empty_rsvp_meetup = {
+            "meetup": None,
+            "user": 2,
+            "response": "Yes"
+        }
+
+        self.empty_rsvp_user = {
+            "meetup": 1,
+            "user": None,
+            "response": "Yes"
+        }
+
+        self.empty_response = {
+            "meetup": 1,
+            "user": 2,
+            "response": ""
+        }
+
     # methods for user registration and login
     def register(self):
         '''registers the test client'''
@@ -366,3 +406,17 @@ class BaseTest(unittest.TestCase):
             content_type = 'application/json'
         )
         return question
+
+    #method for creating an rsvp
+    def create_rsvp(self):
+        '''creates an rspv'''
+        rsvp = self.app.post(
+            BASE_RSVP_URL,
+            headers=dict(
+                Authorization='Bearer ' + self.login()
+            ),
+            data=json.dumps(self.valid_question_entry),
+            content_type='application/json'
+        )
+        return rsvp
+

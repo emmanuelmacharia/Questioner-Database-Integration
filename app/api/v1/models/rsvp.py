@@ -3,7 +3,15 @@ import datetime
 from flask import request
 from flask_restful import Resource
 
-rsvps = []
+rsvps = [
+    {
+        "id": 1,
+        "meetup": 1,
+        "user": 2,
+        "response": "Yes",
+        "date_confirmed": '02/02/2019 13: 51: 38'
+    }
+]
 
 class RsvpModel:
     '''models for rsvps'''

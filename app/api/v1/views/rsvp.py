@@ -17,7 +17,7 @@ parser.add_argument(
     'user', required=True, type=int, help='UserId is an integer and is required'
 )
 parser.add_argument(
-    'response', required=True, type=str, help='MeetupId is an integer and is required'
+    'response', required=True, type=str, help='Your response is required'
 )
 
 class Rsvp(Resource):
@@ -43,7 +43,7 @@ class Rsvp(Resource):
             'id', 'meetup', 'user', 'response', 'date_confirmed'
         ]
         if not meetup or not user or not response:
-            return {'message': 'Your id and meetup id  and response is required'}, 400
+            return {'message': 'Your id and meetup id  and response are required'}, 400
         else:
             for item in data.keys():
                 if item not in payload:
