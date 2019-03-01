@@ -20,8 +20,8 @@ def createapp(config_name):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_configurations['testing'])
     os.getenv("SECRET_KEY")
-    app.register_blueprint(v1)
     app.config['JWT_SECRET_KEY'] = 'practice'
+    app.register_blueprint(v1)
     
     JWTManager(app)
 
