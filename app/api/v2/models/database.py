@@ -34,10 +34,10 @@ query4 = """CREATE TABLE IF NOT EXISTS "rsvp"(id serial PRIMARY KEY,
                                            response text NOT NULL,
                                            date_confirmed TIMESTAMP NOT NULL);"""
 
-deleteuser = "DROP TABLE \"user\";"
-deletemeetup = "DROP TABLE \"meetup\";"
-deletequestion = "DROP TABLE \"question\";"
-deletersvp = "DROP TABLE \"rsvp\";"
+deleteuser = "DROP TABLE \"users\" CASCADE;"
+deletemeetup = "DROP TABLE \"meetup\" CASCADE;"
+deletequestion = "DROP TABLE \"question\" CASCADE;"
+deletersvp = "DROP TABLE \"rsvp\" CASCADE;"
 
 adminquery = (
     '''INSERT INTO "users" (
