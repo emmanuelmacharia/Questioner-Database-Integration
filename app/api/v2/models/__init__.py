@@ -26,10 +26,12 @@ def dbconnect():
             )
     # except Exception as e:
     #     print (e, "No connection")
+    print(connection)
     return connection
 
 
 conn = dbconnect()
+print(conn)
 
 def create_tables():
     '''creates the tables in our database that
