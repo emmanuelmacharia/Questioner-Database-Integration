@@ -12,6 +12,7 @@ connection = psycopg2.connect(
 )
 def dbconnect():
     '''connects to the databases'''
+    global connection
     # try:
     '''try connecting to one of the three environments set'''
     if environment == 'testing':
