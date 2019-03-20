@@ -13,22 +13,20 @@ def dbconnect():
     try:
         '''try connecting to one of the three environments set'''
         if environment == 'testing':
-            conn = psycopg2.connect(
+            connection = psycopg2.connect(
                 "postgresql://marsha11:Permafrost@localhost:5432/questionert"
                 )
         if environment == 'production':
-            conn = psycopg2.connect(
+            connection = psycopg2.connect(
                 "postgresql://marsha11:Permafrost@localhost:5432/questionerpr"
                 )
         if environment == 'development':
-            conn = psycopg2.connect(
+            connection = psycopg2.connect(
                 "postgresql://marsha11:Permafrost@localhost:5432/questionerdev"
                 )
     except Exception as e:
         print (e, "No connection")
-
-    print(conn, environment)
-    return conn
+    return connection
 
 
 conn = dbconnect()
