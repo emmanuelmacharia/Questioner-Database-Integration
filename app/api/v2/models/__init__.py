@@ -10,22 +10,22 @@ production_url = os.getenv('PRODUCTION_DATABASE_URI')
 
 def dbconnect():
     '''connects to the databases'''
-    try:
-        '''try connecting to one of the three environments set'''
-        if environment == 'testing':
-            connection = psycopg2.connect(
-                "postgresql://marsha11:Permafrost@localhost:5432/questionert"
-                )
-        if environment == 'production':
-            connection = psycopg2.connect(
-                "postgresql://marsha11:Permafrost@localhost:5432/questionerpr"
-                )
-        if environment == 'development':
-            connection = psycopg2.connect(
-                "postgresql://marsha11:Permafrost@localhost:5432/questionerdev"
-                )
-    except Exception as e:
-        print (e, "No connection")
+    # try:
+    '''try connecting to one of the three environments set'''
+    if environment == 'testing':
+        connection = psycopg2.connect(
+            "postgresql://marsha11:Permafrost@localhost:5432/questionert"
+            )
+    if environment == 'production':
+        connection = psycopg2.connect(
+            "postgresql://marsha11:Permafrost@localhost:5432/questionerpr"
+            )
+    if environment == 'development':
+        connection = psycopg2.connect(
+            "postgresql://marsha11:Permafrost@localhost:5432/questionerdev"
+            )
+    # except Exception as e:
+    #     print (e, "No connection")
     return connection
 
 
