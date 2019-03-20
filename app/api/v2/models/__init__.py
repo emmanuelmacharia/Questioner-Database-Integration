@@ -4,11 +4,11 @@ import psycopg2
 from .database import queries, deleters, adminquery
 
 environment = os.getenv('APP_SETTINGS')
-development_url = os.getenv('DEVELOPMENT_DATABASE_URI')
+development_url = os.getenv('DATABASE_URL')
 testing_url = os.getenv('TESTING_DATABASE_URI')
 production_url = os.getenv('PRODUCTION_DATABASE_URI')
 connection = psycopg2.connect(
-    "postgresql://marsha11:Permafrost@localhost:5432/questionerdev"
+    "postgres://axroxheswxsxwg:453484506af4a337bc55c5bf6ec7322f33573a787e78f8484cdcd17664e613cc@ec2-54-197-232-203.compute-1.amazonaws.com:5432/deuetl5g14lbil"
 )
 def dbconnect():
     '''connects to the databases'''
