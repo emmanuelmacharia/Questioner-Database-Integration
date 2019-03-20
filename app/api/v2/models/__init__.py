@@ -7,7 +7,9 @@ environment = os.getenv('APP_SETTINGS')
 development_url = os.getenv('DEVELOPMENT_DATABASE_URI')
 testing_url = os.getenv('TESTING_DATABASE_URI')
 production_url = os.getenv('PRODUCTION_DATABASE_URI')
-
+connection = psycopg2.connect(
+    "postgresql://marsha11:Permafrost@localhost:5432/questionerdev"
+)
 def dbconnect():
     '''connects to the databases'''
     # try:
