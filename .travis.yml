@@ -14,9 +14,11 @@ install:
 # command to run tests
 
 before sript:
-- psql -c "CREATE DATABASE questionerdev;"-U postgres
-- psql -c "CREATE USER postgres;" -U postgres
-- psql -c "ALTER USER postgres WITH password 'Permafrost';"-U postgres`
+# - psql -c "CREATE DATABASE questionerdev;"-U postgres
+# - psql -c "CREATE DATABASE questionerpr;"-U postgres
+- psql -c "CREATE DATABASE questionert;"-U postgres
+- psql -c "CREATE USER postgres;" -U marsha11
+- psql -c "ALTER USER postgres WITH password 'Permafrost';"-U postgres
 
 branches:
   only:
