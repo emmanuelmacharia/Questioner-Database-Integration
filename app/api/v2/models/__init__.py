@@ -7,29 +7,34 @@ environment = os.getenv('APP_SETTINGS')
 development_url = os.getenv('DEVELOPMENT_DATABASE_URI')
 testing_url = os.getenv('TESTING_DATABASE_URI')
 production_url = os.getenv('PRODUCTION_DATABASE_URI')
-
+connection = psycopg2.connect(
+    "postgresql://marsha11:Permafrost@localhost:5432/questionerdev"
+)
 def dbconnect():
     '''connects to the databases'''
-    try:
-        '''try connecting to one of the three environments set'''
-        if environment == 'testing':
-            connection = psycopg2.connect(
-                "postgresql://marsha11:Permafrost@localhost:5432/questionert"
-                )
-        if environment == 'production':
-            connection = psycopg2.connect(
-                "postgresql://marsha11:Permafrost@localhost:5432/questionerpr"
-                )
-        if environment == 'development':
-            connection = psycopg2.connect(
-                "postgresql://marsha11:Permafrost@localhost:5432/questionerdev"
-                )
-    except Exception as e:
-        print (e, "No connection")
+    global connection
+    # try:
+    '''try connecting to one of the three environments set'''
+    if environment == 'testing':
+        connection = psycopg2.connect(
+            "postgresql://marsha11:Permafrost@localhost:5432/questionert"
+            )
+    if environment == 'production':
+        connection = psycopg2.connect(
+            "postgresql://marsha11:Permafrost@localhost:5432/questionerpr"
+            )
+    if environment == 'development':
+        connection = psycopg2.connect(
+            "postgresql://marsha11:Permafrost@localhost:5432/questionerdev"
+            )
+    # except Exception as e:
+    #     print (e, "No connection")
+    print(connection)
     return connection
 
 
 conn = dbconnect()
+print(conn)
 
 def create_tables():
     '''creates the tables in our database that
