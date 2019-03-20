@@ -32,3 +32,8 @@ class BaseTest(unittest.TestCase):
             "username": "capriereceor",
             "password": "despacito"
         }
+
+    def tearDown(self):
+        '''removes all the testing data created'''
+        drop_tables()
+        return "all clear"

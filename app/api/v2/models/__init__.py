@@ -26,8 +26,6 @@ def dbconnect():
                 )
     except Exception as e:
         print (e, "No connection")
-
-    print(conn, environment)
     return conn
 
 
