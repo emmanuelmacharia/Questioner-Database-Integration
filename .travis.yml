@@ -17,8 +17,8 @@ before sript:
 # - psql -c "CREATE DATABASE questionerdev;"-U postgres
 # - psql -c "CREATE DATABASE questionerpr;"-U postgres
 - psql -c "CREATE DATABASE questionert;"-U postgres
-- psql -c "CREATE USER postgres;" -U marsha11
-- psql -c "ALTER USER postgres WITH password 'Permafrost';"-U postgres
+- psql -c "CREATE USER marsha11;" -U marsha11
+- psql -c "ALTER USER marsha11 WITH password 'Permafrost';"-U postgres`
 
 branches:
   only:
